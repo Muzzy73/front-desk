@@ -18,7 +18,7 @@ class InnHotelsSetting(Document):
 @frappe.whitelist()
 def generate_folio_transaction_type():
 	default_company = frappe.get_doc("Global Defaults").default_company
-	create_account('Other A/R', '1130.000', '1133.000', 1, default_currency, 'Asset', default_company)
+	create_account('Other A/R', '1130.000', '1133.000', 1, default_currency, 'Receivable', 'Asset', default_company)
 	create_account('A/R Guest Ledger', '1133.000', '1133.003', 0, default_currency, 'Receivable', 'Asset', default_company)
 	create_account('A/R Sale', '1133.000', '1133.002', 0, default_currency, 'Receivable', 'Asset', default_company)
 	create_account('Cash Clearance', '1110.000', '1113.000', 0, default_currency, 'Cash', 'Asset', default_company)
