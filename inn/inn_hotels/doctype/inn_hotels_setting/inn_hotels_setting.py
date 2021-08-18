@@ -30,8 +30,7 @@ def generate_folio_transaction_type():
 		acc_4210_000.account_type = ''
 		acc_4210_000.is_group = 1
 		acc_4210_000.save()
-	create_account('Room Revenue', '4210.000', '4210.001', 0, '
-		       ', 'Income Account', 'Income', default_company)
+	create_account('Room Revenue', '4210.000', '4210.001', 0, default_currency, 'Income Account', 'Income', default_company)
 	acc_4110_000 = frappe.get_doc('Account', {'account_number': '4110.000'})
 	if acc_4110_000.is_group == 0:
 		acc_4110_000.account_type = ''
