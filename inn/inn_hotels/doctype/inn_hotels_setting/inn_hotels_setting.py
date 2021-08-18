@@ -18,32 +18,33 @@ class InnHotelsSetting(Document):
 @frappe.whitelist()
 def generate_folio_transaction_type():
 	default_company = frappe.get_doc("Global Defaults").default_company
-	create_account('Other A/R', '1130.000', '1133.000', 1, 'IDR', '', 'Asset', default_company)
-	create_account('A/R Guest Ledger', '1133.000', '1133.003', 0, 'IDR', 'Receivable', 'Asset', default_company)
-	create_account('A/R Sale', '1133.000', '1133.002', 0, 'IDR', 'Receivable', 'Asset', default_company)
-	create_account('Cash Clearance', '1110.000', '1113.000', 0, 'IDR', 'Cash', 'Asset', default_company)
-	create_account('A/P Service Charge', '2110.000', '2110.004', 0, 'IDR', 'Payable', 'Liability', default_company)
-	create_account('A/P Guest Deposit', '2110.000', '2110.005', 0, 'IDR', 'Payable', 'Liability', default_company)
-	create_account('A/P In Transit', '2110.000', '2110.013', 0, 'IDR', 'Payable', 'Liability',default_company)
+	create_account('Other A/R', '1130.000', '1133.000', 1, default_currency, '', 'Asset', default_company)
+	create_account('A/R Guest Ledger', '1133.000', '1133.003', 0, default_currency, 'Receivable', 'Asset', default_company)
+	create_account('A/R Sale', '1133.000', '1133.002', 0, default_currency, 'Receivable', 'Asset', default_company)
+	create_account('Cash Clearance', '1110.000', '1113.000', 0, default_currency, 'Cash', 'Asset', default_company)
+	create_account('A/P Service Charge', '2110.000', '2110.004', 0, default_currency, 'Payable', 'Liability', default_company)
+	create_account('A/P Guest Deposit', '2110.000', '2110.005', 0, default_currency, 'Payable', 'Liability', default_company)
+	create_account('A/P In Transit', '2110.000', '2110.013', 0, default_currency, 'Payable', 'Liability',default_company)
 	acc_4210_000 = frappe.get_doc('Account', {'account_number': '4210.000'})
 	if acc_4210_000.is_group == 0:
 		acc_4210_000.account_type = ''
 		acc_4210_000.is_group = 1
 		acc_4210_000.save()
-	create_account('Room Revenue', '4210.000', '4210.001', 0, 'IDR', 'Income Account', 'Income', default_company)
+	create_account('Room Revenue', '4210.000', '4210.001', 0, '
+		       ', 'Income Account', 'Income', default_company)
 	acc_4110_000 = frappe.get_doc('Account', {'account_number': '4110.000'})
 	if acc_4110_000.is_group == 0:
 		acc_4110_000.account_type = ''
 		acc_4110_000.is_group = 1
 		acc_4110_000.save()
-	create_account('Breakfast Revenue', '4110.000', '4110.001', 0, 'IDR', 'Income Account', 'Income', default_company)
+	create_account('Breakfast Revenue', '4110.000', '4110.001', 0, default_currency, 'Income Account', 'Income', default_company)
 	acc_4140_000 = frappe.get_doc('Account', {'account_number': '4140.000'})
 	if acc_4140_000.is_group == 0:
 		acc_4140_000.account_type = ''
 		acc_4140_000.is_group = 1
 		acc_4140_000.save()
-	create_account('Room Service Food Revenue', '4140.000', '4140.001', 0, 'IDR', 'Income Account', 'Income', default_company)
-	create_account('Room Service Beverages Revenue', '4140.000', '4140.002', 0, 'IDR', 'Income Account', 'Income', default_company)
+	create_account('Room Service Food Revenue', '4140.000', '4140.001', 0, default_currency, 'Income Account', 'Income', default_company)
+	create_account('Room Service Beverages Revenue', '4140.000', '4140.002', 0, default_currency, 'Income Account', 'Income', default_company)
 
 	folio_transaction_type_records = []
 	if not frappe.db.exists('Inn Folio Transaction Type', {'trx_name': 'Package Tax'}):
@@ -118,10 +119,10 @@ def generate_folio_transaction_type():
 			'credit_account': frappe.db.get_list('Account', filters={'account_number': '1113.000'})[0].name,
 			'debit_account': frappe.db.get_list('Account', filters={'account_number': '2110.005'})[0].name
 		}]
-	if not frappe.db.exists('Inn Folio Transaction Type', {'trx_name': 'DP Kamar'}):
+	if not frappe.db.exists('Inn Folio Transaction Type', {'trx_name': 'DP Room'}):
 		folio_transaction_type_records += [{
 			'doctype': 'Inn Folio Transaction Type',
-			'trx_name': _('DP Kamar'),
+			'trx_name': _('DP Room'),
 			'module': 0,
 			'type': _('Credit'),
 			'is_included': 0,
@@ -400,7 +401,7 @@ def generate_hotel_account():
 		create_account(item['account_name'], item['parent_number'], item['account_number'], item['is_group'],
 				   item['account_currency'], item['account_type'], item['root_type'])
 	frappe.msgprint("Generating Account Success")
-	# create_account('Payroll', '', '6000.000', 1, 'IDR', '', frappe.get_doc("Global Defaults").default_company, 'Expense')
+	# create_account('Payroll', '', '6000.000', 1, default_currency, '', frappe.get_doc("Global Defaults").default_company, 'Expense')
 	# if frappe.db.exists('Account', {'account_number': '6000.000'}) and frappe.db.exists('Account', {'account_number': '7000.000'}):
 	# 	accounts = get_account()
 	# 	for item in accounts:
