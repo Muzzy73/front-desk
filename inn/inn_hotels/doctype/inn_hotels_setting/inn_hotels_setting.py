@@ -18,13 +18,13 @@ class InnHotelsSetting(Document):
 @frappe.whitelist()
 def generate_folio_transaction_type():
 	default_company = frappe.get_doc("Global Defaults").default_company
-	create_account('Other A/R', '1130.000', '1133.000', 1, default_currency, 'Receivable', 'Asset', default_company)
-	create_account('A/R Guest Ledger', '1133.000', '1133.003', 0, default_currency, 'Receivable', 'Asset', default_company)
-	create_account('A/R Sale', '1133.000', '1133.002', 0, default_currency, 'Receivable', 'Asset', default_company)
-	create_account('Cash Clearance', '1110.000', '1113.000', 0, default_currency, 'Cash', 'Asset', default_company)
-	create_account('A/P Service Charge', '2110.000', '2110.004', 0, default_currency, 'Payable', 'Liability', default_company)
-	create_account('A/P Guest Deposit', '2110.000', '2110.005', 0, default_currency, 'Payable', 'Liability', default_company)
-	create_account('A/P In Transit', '2110.000', '2110.013', 0, default_currency, 'Payable', 'Liability',default_company)
+	create_account('Other A/R', '1130.000', '1133.000', 1, 'SAR', 'Receivable', 'Asset', default_company)
+	create_account('A/R Guest Ledger', '1133.000', '1133.003', 0, 'SAR', 'Receivable', 'Asset', default_company)
+	create_account('A/R Sale', '1133.000', '1133.002', 0, 'SAR', 'Receivable', 'Asset', default_company)
+	create_account('Cash Clearance', '1110.000', '1113.000', 0, 'SAR', 'Cash', 'Asset', default_company)
+	create_account('A/P Service Charge', '2110.000', '2110.004', 0, 'SAR', 'Payable', 'Liability', default_company)
+	create_account('A/P Guest Deposit', '2110.000', '2110.005', 0, 'SAR', 'Payable', 'Liability', default_company)
+	create_account('A/P In Transit', '2110.000', '2110.013', 0, 'SAR', 'Payable', 'Liability',default_company)
 	acc_4210_000 = frappe.get_doc('Account', {'account_number': '4210.000'})
 	if acc_4210_000.is_group == 0:
 		acc_4210_000.account_type = ''
