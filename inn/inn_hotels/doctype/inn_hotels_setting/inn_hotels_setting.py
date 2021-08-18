@@ -30,20 +30,20 @@ def generate_folio_transaction_type():
 		acc_4210_000.account_type = ''
 		acc_4210_000.is_group = 1
 		acc_4210_000.save()
-	create_account('Room Revenue', '4210.000', '4210.001', 0, default_currency, 'Income Account', 'Income', default_company)
+	create_account('Room Revenue', '4210.000', '4210.001', 0, 'SAR', 'Income Account', 'Income', default_company)
 	acc_4110_000 = frappe.get_doc('Account', {'account_number': '4110.000'})
 	if acc_4110_000.is_group == 0:
 		acc_4110_000.account_type = ''
 		acc_4110_000.is_group = 1
 		acc_4110_000.save()
-	create_account('Breakfast Revenue', '4110.000', '4110.001', 0, default_currency, 'Income Account', 'Income', default_company)
+	create_account('Breakfast Revenue', '4110.000', '4110.001', 0, 'SAR', 'Income Account', 'Income', default_company)
 	acc_4140_000 = frappe.get_doc('Account', {'account_number': '4140.000'})
 	if acc_4140_000.is_group == 0:
 		acc_4140_000.account_type = ''
 		acc_4140_000.is_group = 1
 		acc_4140_000.save()
-	create_account('Room Service Food Revenue', '4140.000', '4140.001', 0, default_currency, 'Income Account', 'Income', default_company)
-	create_account('Room Service Beverages Revenue', '4140.000', '4140.002', 0, default_currency, 'Income Account', 'Income', default_company)
+	create_account('Room Service Food Revenue', '4140.000', '4140.001', 0, 'SAR', 'Income Account', 'Income', default_company)
+	create_account('Room Service Beverages Revenue', '4140.000', '4140.002', 0, 'SAR', 'Income Account', 'Income', default_company)
 
 	folio_transaction_type_records = []
 	if not frappe.db.exists('Inn Folio Transaction Type', {'trx_name': 'Package Tax'}):
@@ -400,7 +400,7 @@ def generate_hotel_account():
 		create_account(item['account_name'], item['parent_number'], item['account_number'], item['is_group'],
 				   item['account_currency'], item['account_type'], item['root_type'])
 	frappe.msgprint("Generating Account Success")
-	# create_account('Payroll', '', '6000.000', 1, default_currency, '', frappe.get_doc("Global Defaults").default_company, 'Expense')
+	# create_account('Payroll', '', '6000.000', 1, 'SAR, '', frappe.get_doc("Global Defaults").default_company, 'Expense')
 	# if frappe.db.exists('Account', {'account_number': '6000.000'}) and frappe.db.exists('Account', {'account_number': '7000.000'}):
 	# 	accounts = get_account()
 	# 	for item in accounts:
