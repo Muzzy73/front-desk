@@ -58,7 +58,7 @@ def process_dayend_close(doc_id):
 					doc_je = frappe.new_doc('Journal Entry')
 					doc_je.title = doc_folio.name
 					doc_je.voucher_type = 'Journal Entry'
-					doc_je.naming_series = 'ACC-JV-.YYYY.-'
+					doc_je.naming_series = 'JV-.MM.-.YY.-'
 					doc_je.posting_date = get_last_audit_date()
 					doc_je.company = frappe.get_doc('Global Defaults').default_company
 					doc_je.total_amount_currency = frappe.get_doc('Global Defaults').default_currency
@@ -112,7 +112,7 @@ def process_dayend_close(doc_id):
 					doc_je = frappe.new_doc('Journal Entry')
 					doc_je.title = doc_folio.name
 					doc_je.voucher_type = 'Journal Entry'
-					doc_je.naming_series = 'ACC-JV-.YYYY.-'
+					doc_je.naming_series = 'JV-.MM.-.YY.-'
 					doc_je.posting_date = get_last_audit_date()
 					doc_je.company = frappe.get_doc('Global Defaults').default_company
 					doc_je.total_amount_currency = frappe.get_doc('Global Defaults').default_currency
@@ -239,7 +239,7 @@ def process_dayend_close(doc_id):
 			frappe.db.set_value('Inn Restaurant Finished Order', order.name, 'is_journaled', 1)
 
 		doc_audit_log = frappe.new_doc('Inn Audit Log')
-		doc_audit_log.naming_series = 'AL.DD.-.MM.-.YYYY.-'
+		doc_audit_log.naming_series = 'AL.DD.-.MM.-.YY.-'
 		doc_audit_log.audit_date = get_last_audit_date() + datetime.timedelta(days = 1)
 		doc_audit_log.posting_date = datetime.datetime.now()
 		doc_audit_log.posted_by =frappe.session.user
@@ -313,7 +313,7 @@ def create_journal_entry(title, remark, debit_account, credit_account, amount):
 	doc_je = frappe.new_doc('Journal Entry')
 	doc_je.title = title
 	doc_je.voucher_type = 'Journal Entry'
-	doc_je.naming_series = 'ACC-JV-.YYYY.-'
+	doc_je.naming_series = 'JV-.MM.-.YY.-'
 	doc_je.posting_date = get_last_audit_date()
 	doc_je.company = frappe.get_doc('Global Defaults').default_company
 	doc_je.total_amount_currency = frappe.get_doc('Global Defaults').default_currency
