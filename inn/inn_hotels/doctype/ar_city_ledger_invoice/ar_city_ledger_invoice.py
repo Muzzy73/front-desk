@@ -34,7 +34,7 @@ def make_payment(id):
 		doc_je = frappe.new_doc('Journal Entry')
 		doc_je.title = payment.name
 		doc_je.voucher_type = 'Journal Entry'
-		doc_je.naming_series = 'ACC-JV-.YYYY.-'
+		doc_je.naming_series = 'JV-.MM.-.YY.-'
 		doc_je.posting_date = payment.payment_reference_date
 		doc_je.company = frappe.get_doc('Global Defaults').default_company
 		doc_je.total_amount_currency = frappe.get_doc('Global Defaults').default_currency
